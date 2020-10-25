@@ -1,26 +1,53 @@
+body {
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
 .mainForm {
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   max-width: 250px;
   min-height: 250px;
-  border: 2px solid grey;
+  background-color: white;
+  border: 1px solid lightgrey;
   border-radius: 10px;
   padding: 30px;
   outline: none;
 }
 
+img {
+  padding-top: 20px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 auto;
+  font-weight: 100;
+  font-size: 1.4rem;
+  padding: 15px;
+}
+
+.logoImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 label {
   display: flex;
   flex-direction: column;
-  font-weight: bold;
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.9rem;
   margin-bottom: 10px;
 }
 
 .inputField {
   padding: 10px;
   margin-top: 10px;
-  border-radius: 20px;
-  border: 1px solid grey;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
 }
 
 .inputField:focus {
@@ -28,14 +55,25 @@ label {
   outline: none;
 }
 
+.passwordInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forgotPassword {
+  cursor: pointer;
+  color: rgb(86, 86, 255);
+}
+
 .signInButton {
   margin-top: 50px;
   cursor: pointer;
   padding: 10px;
-  border-radius: 20px;
-  background-color: #31c052;
+  border-radius: 5px;
+  background-color: #2eac4b;
   transition: all 0.4s ease;
-  border: 1px solid grey;
+  border: 1px solid transparent;
+  font-weight: bold;
   outline: none;
   color: white;
 }
@@ -43,6 +81,18 @@ label {
 .signInButton:hover {
   background-color: #2aa346;
   transition: all 0.4s ease;
+}
+
+.errorMessage::before {
+  position: relative;
+  bottom: 35px;
+
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 20px;
+  border-color: transparent transparent #f08080 transparent;
 }
 
 .errorMessage {

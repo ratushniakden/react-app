@@ -10,7 +10,7 @@ const validationScheme = Yup.object({
     // gr3at@3wdsG
     .trim()
     .matches(
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+      /^(?![\s])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/gm,
       'Minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character'
     )
     .required('This is required field'),
@@ -29,49 +29,60 @@ const SignInFormik = (props) => {
   };
 
   return (
-    <Formik
-      onSubmit={submitHandler}
-      initialValues={initialValues}
-      validationSchema={validationScheme}
-    >
-      {(formikProps) => {
-        return (
-          <Form className={styles.mainForm}>
-            <label htmlFor="">
-              {' '}
-              Login
-              <Field
-                className={styles.inputField}
+    <>
+      <div>
+        <img
+          className={styles.logoImage}
+          src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+          alt="logoImage"
+        />
+        <h1>Sign in to GitHub</h1>
+      </div>
+      <Formik
+        onSubmit={submitHandler}
+        initialValues={initialValues}
+        validationSchema={validationScheme}
+      >
+        {(formikProps) => {
+          return (
+            <Form className={styles.mainForm}>
+              <label>
+                {' '}
+                Username or email address
+                <Field
+                  className={styles.inputField}
+                  name="login"
+                  type="text"
+                />{' '}
+              </label>
+              <ErrorMessage
+                className={styles.errorMessage}
                 name="login"
-                type="text"
-                placeholder="Login"
-              />{' '}
-            </label>
-            <ErrorMessage
-              className={styles.errorMessage}
-              name="login"
-              component="span"
-            />
-            <label htmlFor="">
-              {' '}
-              Password
-              <Field
-                className={styles.inputField}
-                name="password"
-                type="password"
-                placeholder="Password"
+                component="span"
               />
-            </label>
-            <ErrorMessage
-              className={styles.errorMessage}
-              name="password"
-              component="span"
-            />
-            <input className={styles.signInButton} type="submit" />
-          </Form>
-        );
-      }}
-    </Formik>
+              <label>
+                {' '}
+                <span className={styles.passwordInfo}>
+                  <p>Password</p>
+                  <p className={styles.forgotPassword}>Forgot password?</p>{' '}
+                </span>
+                <Field
+                  className={styles.inputField}
+                  name="password"
+                  type="password"
+                />
+              </label>
+              <ErrorMessage
+                className={styles.errorMessage}
+                name="password"
+                component="span"
+              />
+              <input className={styles.signInButton} type="submit" value="Sign in" />
+            </Form>
+          );
+        }}
+      </Formik>
+    </>
   );
 };
 SignInFormik.propTypes = {};
