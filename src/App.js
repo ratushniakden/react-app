@@ -1,15 +1,28 @@
-import React, { Component } from 'react';
-import { loadPosts, loadUsers } from './api';
+import React, { Component, Suspense } from 'react';
 import './App.css';
-import UserList from './components/UserList';
-import TestComponent from './components/Test';
-import DataLoader from './components/DataLoader';
-import SignInForm from './components/forms/SignInForm';
-import SignInFormik from './components/forms/SignInFormik';
+
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+
+const Home = React.lazy(() => import('./components/pages/Home'));
+const About = React.lazy(() => import('./components/pages/About'));
+const SignInFormik = React.lazy(() =>
+  import('./components/forms/SignInFormik')
+);
 
 class App extends Component {
   render() {
-    return <SignInFormik />;
+    return (
+      <Router>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/sign_in" component={SignInFormik} />
+          </Switch>
+        </Suspense>
+        <Route />
+      </Router>
+    );
   }
 }
 

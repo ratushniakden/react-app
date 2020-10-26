@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field, Formik, ErrorMessage } from 'formik';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import styles from './SignInFormik.module.css';
 
 const validationScheme = Yup.object({
-  login: Yup.string().trim().min(8).max(32).required('This is required field'),
-  password: Yup.string()
-    // gr3at@3wdsG
+  login: Yup.string()
     .trim()
     .matches(
-      /^(?![\s])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/gm,
-      'Minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character'
+      /^[a-z0-9_-]{3,15}$/gm,
+      'length of 3 to 16 characters, no space allowed'
+    )
+    .required('This is required field'),
+  password: Yup.string()
+    // gr3at@3wdsG
+    .matches(
+      /^([^\s])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}([^\s])$/gm,
+      'minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character'
     )
     .required('This is required field'),
 });
@@ -30,6 +36,8 @@ const SignInFormik = (props) => {
 
   return (
     <>
+      Home
+      <Link to="/">To Home</Link>
       <div>
         <img
           className={styles.logoImage}
@@ -43,28 +51,30 @@ const SignInFormik = (props) => {
         initialValues={initialValues}
         validationSchema={validationScheme}
       >
-        {(formikProps) => {
+        {({ errors, touched }) => {
           return (
             <Form className={styles.mainForm}>
               <label>
-                {' '}
                 Username or email address
-                <Field
-                  className={styles.inputField}
-                  name="login"
-                  type="text"
-                />{' '}
+                <Field className={styles.inputField} name="login" type="text" />
               </label>
-              <ErrorMessage
-                className={styles.errorMessage}
-                name="login"
-                component="span"
-              />
+              <div className={styles.popUpError}>
+                <ErrorMessage
+                  className={styles.errorMessage}
+                  name="login"
+                  component="span"
+                />
+              </div>
               <label>
-                {' '}
                 <span className={styles.passwordInfo}>
                   <p>Password</p>
-                  <p className={styles.forgotPassword}>Forgot password?</p>{' '}
+                  <p>
+                    {' '}
+                    <a className={styles.forgotPassword} href="#">
+                      {' '}
+                      Forgot password?
+                    </a>
+                  </p>{' '}
                 </span>
                 <Field
                   className={styles.inputField}
@@ -72,12 +82,19 @@ const SignInFormik = (props) => {
                   type="password"
                 />
               </label>
-              <ErrorMessage
-                className={styles.errorMessage}
-                name="password"
-                component="span"
+              <div className={styles.popUpError}>
+                <ErrorMessage
+                  className={styles.errorMessage}
+                  name="password"
+                  component="span"
+                />
+              </div>
+
+              <input
+                className={styles.signInButton}
+                type="submit"
+                value="Sign in"
               />
-              <input className={styles.signInButton} type="submit" value="Sign in" />
             </Form>
           );
         }}

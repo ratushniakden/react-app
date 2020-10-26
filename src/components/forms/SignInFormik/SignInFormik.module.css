@@ -8,7 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 250px;
-  min-height: 250px;
+  max-height: 250px;
   background-color: white;
   border: 1px solid lightgrey;
   border-radius: 10px;
@@ -32,6 +32,7 @@ h1 {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 label {
@@ -61,12 +62,19 @@ label {
 }
 
 .forgotPassword {
+}
+a {
   cursor: pointer;
+  text-decoration: none;
   color: rgb(86, 86, 255);
 }
 
+.forgotPassword:hover {
+  color: rgb(0, 0, 255);
+}
+
 .signInButton {
-  margin-top: 50px;
+  margin-top: 10px;
   cursor: pointer;
   padding: 10px;
   border-radius: 5px;
@@ -84,9 +92,9 @@ label {
 }
 
 .errorMessage::before {
-  position: relative;
-  bottom: 35px;
-
+  position: absolute;
+  top: -7px;
+  left: 3px;
   content: '';
   width: 0;
   height: 0;
@@ -96,8 +104,15 @@ label {
 }
 
 .errorMessage {
+  position: absolute;
+  max-width: 200px;
+  text-align: left;
   background-color: lightcoral;
   padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.popUpError {
+  display: flex;
 }
